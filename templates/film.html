@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}: {{movie.Name}}{% endblock %}
+{% block main%}
+<div class="container mt-4">
+  <div class="row">
+    <div class="card mb-3">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+
+          {% if movie.CycledVideoUrl %}
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe src={{movie.CycledVideoUrl}} allow="autoplay" allowfullscreen></iframe>
+          </div>
+          {% else %}
+          <img src={{movie.Image630x315.Url}} class="card-img" alt="...">
+          {% endif %}
+          <div class="row mt-2">
+            <div class="col">
+              <a href="https://www.afisha.ru{{movie.Url}}" class="btn btn-primary btn-small btn-block" style="font-size: 0.75rem">Рейтинг Афиши: {{movie.Rating}}</a>
+              <a href="{{movie.kp_url}}" class="btn btn-warning btn-small btn-block" style="font-size: 0.75rem">Рейтинг Кинопоиска: {{movie.kp_rating}}</a>
+              <a href="{{movie.MovieScheduleUrl}}" class="btn btn-dark btn-small btn-block" style="font-size: 0.75rem">Купить билеты</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h4 class="card-title">{{movie.Name}}</h4>
+            <p class="card-text">{{movie.OriginalName}} ({{movie.Country}}, {{movie.ProductionYear}})</p>
+            <p class="card-text">{{movie.Synopsis}}</p>
+            <p class="card-text">{{movie.Description}}</p>
+            <p class="card-text">Режиссер: {% for director in movie.Directors.Links[:-1] %}{{director.Name}}, {% endfor %}{{movie.Directors.Links[-1].Name}}</p>
+
+            {% if movie.Actors.Links|length %}
+            <p class="card-text">В ролях: {% for actor in movie.Actors.Links[:-1] %}{{actor.Name}}, {% endfor %}{{movie.Actors.Links[-1].Name}}</p>
+            {% endif %}
+
+            <p class="card-text">Жанр: {% for genre in movie.Genres.Links[:-1] %}{{genre.Name}}, {% endfor %}{{movie.Genres.Links[-1].Name}}</p>
+            <p class="card-text">Продолжительность: {{movie.Duration}}</p>
+            <p class="card-text">Возрастное ограничение: {{movie.AgeRestriction}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.container -->
+{% endblock %}

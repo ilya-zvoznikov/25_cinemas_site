@@ -1,0 +1,8 @@
+.idea/
+venv/
+__pycache__/
+cinemas.log
+movies.json
+cinemas.log
+proxies.json
+tmp*
